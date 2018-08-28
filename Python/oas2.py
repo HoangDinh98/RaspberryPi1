@@ -44,7 +44,7 @@ while True:
   if got_something:
     indicator.off()
     sendtime += 1
-    if sendtime <= 1
+    if sendtime <= 1 :
       sendmail()
     print("{:>3} Got something".format(count))
   else:
