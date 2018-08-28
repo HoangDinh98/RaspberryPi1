@@ -1,0 +1,23 @@
+#!/usr/bin/python
+
+import smtplib
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+ 
+ 
+fromaddr = "ronglua83@gmail.com"
+toaddr = "dthx98@gmail.com"
+msg = MIMEMultipart()
+msg['From'] = fromaddr
+msg['To'] = toaddr
+msg['Subject'] = "DANGEROUS!"
+ 
+body = "YOUR ROOM IS ATTACKED"
+msg.attach(MIMEText(body, 'plain'))
+ 
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.starttls()
+server.login(fromaddr, "testdev-11&%")
+text = msg.as_string()
+server.sendmail(fromaddr, toaddr, text)
+server.quit()

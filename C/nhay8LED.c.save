@@ -1,0 +1,5 @@
+#include <wiringPi.h>
+#include <stdio.h>
+
+#define LED1 0 /* GPIO 17  BCM
+ */

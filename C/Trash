@@ -1,0 +1,5 @@
+if ( digitalRead(ObstaclePin) == HIGH ) {
+		digitalWrite(LED1, HIGH);
+	} else {
+		digitalWrite(LED1, LOW);
+	};
