@@ -2,6 +2,7 @@
 
 from gpiozero import LED
 from signal import pause
+import threading
 import RPi.GPIO as GPIO
 import time
 
@@ -72,15 +73,23 @@ def security(ev=None) :
       print("{:>3} Nothing detected".format(count))
     count += 1
     time.sleep(0.01)
-  
-def loop():
-  GPIO.add_event_detect(BTN_PIN, GPIO.FALLING, callback=setStatus, bouncetime=200)
+
+def startSecurity() :
+  time.sleep(10)
   while True:
     security()
+  
+def loop(timer):
+  GPIO.add_event_detect(BTN_PIN, GPIO.FALLING, callback=setStatus, bouncetime=200)
+  timer.start()
     
 if __name__ == '__main__':
-    try:
-        loop()
-    except KeyboardInterrupt:
-        exit(1)
+  x = False
+  t = threading.Thread(target = startSecurity)
+  t.daemon = True
+  try:
+    loop(t)
+    while not x: time.sleep(0.1)
+  except KeyboardInterrupt:
+    exit(1)
         
