@@ -20,6 +20,7 @@ got_something = 0
 
 priviousTime = datetime.datetime.utcnow()
 currentTime = datetime.datetime.utcnow()
+isDurate = 1
 
 GPIO.setmode(GPIO.BCM)
 indicator = LED(BUZZ_PIN)
@@ -43,20 +44,34 @@ def sendmail() :
   body = "YOUR ROOM IS ATTACKED"
   msg.attach(MIMEText(body, 'plain'))
  
-  server = smtplib.SMTP('smtp.gmail.com', 587)
-  server.starttls()
-  server.login(fromaddr, "testdev-11&%")
-  text = msg.as_string()
-  server.sendmail(fromaddr, toaddr, text)
-  server.quit()
+  try:
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(fromaddr, "testdev-11&%")
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr, text)
+    server.quit()
+  except:
+    print "Can not send Email! Please checking your Network"
+
+def turnOffDivices() :
+  indicator.on()
+  led1.off()
 
 def setStatus(ev=None) :
   global isActive
-  isActive = not isActive
+  global isDurate
+  now = datetime.datetime.now()
 
-  if not (isActive) :
-    indicator.on()
-    led1.off()
+  offAnyWay = (isActive) or (now.minute >= 39 and now.minute <= 41)
+  if offAnyWay :
+    isActive = 0
+    turnOffDivices()
+    print "Security is stopping"
+  else :
+    isActive = 1
+    isDurate = 1
+    print "Security is starting in 20 seconds"
 
 def security(ev=None) :
   global count
@@ -64,11 +79,16 @@ def security(ev=None) :
   global priviousTime
   global currentTime
   global isActive
+  global isDurate
+
+  if (isDurate) :
+    isDurate = 0
+    time.sleep(20)
   
   while isActive:
     now = datetime.datetime.now()
-    if now.minute >= 52 :
-      isActive = not isActive
+    # if now.hour >= 6 and now.hour <= 20:
+      # isActive = not isActive
     
     got_something = GPIO.input(IR_PIN)
     if got_something:
@@ -92,7 +112,6 @@ def security(ev=None) :
     time.sleep(0.01)
 
 def startSecurity() :
-  time.sleep(10)
   while True:
     security()
   
