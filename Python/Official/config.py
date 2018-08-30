@@ -9,5 +9,5 @@ IR_bounceTime = 500 # mili seconds
 sendMailCycle = 60 # seconds
 
 
-startEffectTime = 57 # hours
+startEffectTime = 48 # hours
 endEffectTime = 0 # hours
