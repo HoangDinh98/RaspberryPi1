@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from gpiozero import LED
+from gpiozero import LED, Buzzer
 from signal import pause
 import threading
 import RPi.GPIO as GPIO
@@ -17,7 +17,7 @@ currentTime = datetime.datetime.utcnow()
 sendtime = 0
 
 GPIO.setmode( GPIO.BCM )
-buzzer = LED( CF.BUZZ_PIN )
+buzzer = Buzzer( CF.BUZZ_PIN )
 buzzer.on()
 led = LED( CF.LED_PIN )
 GPIO.setup( CF.IR_PIN, GPIO.IN )
@@ -68,7 +68,6 @@ def security(ev=None) :
       currentTime = datetime.datetime.utcnow()
 
       isSendMail = (sendtime == 0) or ((currentTime - priviousTime).total_seconds() >= CF.sendMailCycle)
-      
       if isSendMail:
         priviousTime = currentTime
         mail.sendmail()
