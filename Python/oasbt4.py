@@ -90,7 +90,7 @@ def security(ev=None) :
 
   if (isDurate) :
     isDurate = 0
-    time.sleep(20)
+    time.sleep(10)
     print "Security is running ..."
   
   while isActive:
@@ -118,6 +118,7 @@ def security(ev=None) :
 def startSecurity() :
   while True:
     security()
+    time.sleep(0.05)
   
 def loop():
   GPIO.add_event_detect(BTN_PIN, GPIO.FALLING, callback=setStatus, bouncetime=500)
