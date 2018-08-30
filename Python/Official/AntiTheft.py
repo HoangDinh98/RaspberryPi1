@@ -73,6 +73,8 @@ def security(ev=None) :
         mail.sendmail()
         sendtime = 1
         print "Security is running ..."
+      else :
+        time.sleep(2)
       
     else:
       buzzer.on()
