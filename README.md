@@ -7,9 +7,9 @@ This Project can help you to protect your house. When theft attrack your house, 
 ## Installation
 - Clone project: ``` git clone https://github.com/HoangDinh98/RaspberryPi1.git ```
 - Install Python:
-    ``` sudo apt-get install python3 ```
-    Or
-    ``` sudo apt-get install python ```
+``` sudo apt-get install python3 ```
+Or
+``` sudo apt-get install python ```
 
 ## Running
 - cd to your project folder
