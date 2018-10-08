@@ -1,0 +1,5 @@
++ Complie file:
+gcc -o hello hello.c -lwiringPi
+
++ Run file:
+./hello
